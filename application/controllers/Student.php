@@ -91,6 +91,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     echo $student;
   }
   
+  public function update() {
+    if($this ->student_model->updateStudent()){
+      $this->session->set_flashdata('status','success');
+      $this->session->set_flashdata('msg', 'One Student updated succesfully!');
+      redirect('student/view');
+    }
+
+  }
+  
   
   
   // HELPER FUNCTIONS

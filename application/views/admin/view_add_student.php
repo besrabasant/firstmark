@@ -23,82 +23,89 @@
                             <?php echo form_error('first_name'); ?>
 														<label for="first_name">First Name</label>
 													</div>
+                          <div class="form-group">
+                              <input name="last_name" type="text" class="form-control" id="last_name" value="<?php echo set_value('last_name'); ?>">
+                              <?php echo form_error('last_name'); ?>
+                              <label for="last_name">Last Name</label>
+                          </div>
+                          
+                          <div class="form-group control-width-normal">
+                            <div class="input-group date" id="date-of-birth">
+                              <div class="input-group-content">
+                                <input name="d_o_b" class="form-control" type="text"  value="<?php echo set_value('d_o_b'); ?>" >
+                                <?php echo form_error('d_o_b'); ?>
+                                <label for="d_o_b">Date of Birth</label>
+                              </div>
+                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                          </div>
+                          
+                          <div class="form-group width-7">
+                            <?php //JAVASCRIPT CODE TO ONLY ACCEPT NUMBERS BY THE INPUT. onkeydown() ?>
+                            <input name="phone" id="phone" class="form-control" type="text" maxlength="10" onkeydown="return ( event.ctrlKey || event.altKey 
+                        || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
+                        || (95<event.keyCode && event.keyCode<106)
+                        || (event.keyCode==8) || (event.keyCode==9) 
+                        || (event.keyCode>34 && event.keyCode<40) 
+                        || (event.keyCode==46) )"  value="<?php echo set_value('phone'); ?>">
+
+                            <?php echo form_error('phone'); ?>
+                            <label for="phone">Phone Number</label>
+                          </div>
+                          
+                          <div class="form-group">
+                            <input name="email" id="email" class="form-control" type="text"  value="<?php echo set_value('email'); ?>" >
+                            <?php echo form_error('email'); ?>
+                            <label for="email">Email</label>
+                          </div>
+                          
 												</div>
+                        
                         <div class="col-md-4">
 													<div class="form-group">
 														<input name="middle_name" type="text" class="form-control" id="middle_name" value="<?php echo set_value('middle_name'); ?>">
 														<label for="middle_name">Middle Name</label>
 													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="form-group">
-														<input name="last_name" type="text" class="form-control" id="last_name" value="<?php echo set_value('last_name'); ?>">
-														<?php echo form_error('last_name'); ?>
-                            <label for="last_name">Last Name</label>
-													</div>
-												</div>
-											</div>
-                      
-                      <div class="row">
-                        
-                          <div class="col-md-4">
-                            <span class="text-lg opacity-50">Gender :</span>
-                            <div class="form-group">
-                              <div class="col-sm-12">
-                                <label class="radio-inline radio-styled radio-primary">
-                                  <input type="radio" name='gender' value="0" <?php echo set_radio('gender', '0', TRUE); ?> ><span>Male</span>
-                                </label>
-                                <label class="radio-inline radio-styled radio-primary">
-                                  <input type="radio" name='gender' value="1" <?php echo set_radio('gender', '1'); ?> ><span>Female</span>
-                                </label>
-                                <label class="radio-inline radio-styled radio-primary">
-                                  <input type="radio" name='gender' value="2" <?php echo set_radio('gender', '2'); ?> ><span>Transgender</span>
-                                </label>
-                              </div><!--end .col -->
-                            </div>
-                             <div class="form-group control-width-normal">
-                              <div class="input-group date" id="date-of-birth">
-                                <div class="input-group-content">
-                                  <input name="d_o_b" class="form-control" type="text"  value="<?php echo set_value('d_o_b'); ?>" >
-                                  <?php echo form_error('d_o_b'); ?>
-                                  <label for="d_o_b">Date of Birth</label>
-                                </div>
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                              </div>
-                            </div>
-                            
-                          </div><!--end .col-md-4 -->
-                          
-                          
-                          <div class="col-md-4">
-                           
-                            <div class="form-group">
-                              <?php //JAVASCRIPT CODE TO ONLY ACCEPT NUMBERS BY THE INPUT. onkeydown() ?>
-                              <input name="phone" id="phone" class="form-control" type="text" maxlength="10" onkeydown="return ( event.ctrlKey || event.altKey 
-                    || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
-                    || (95<event.keyCode && event.keyCode<106)
-                    || (event.keyCode==8) || (event.keyCode==9) 
-                    || (event.keyCode>34 && event.keyCode<40) 
-                    || (event.keyCode==46) )"  value="<?php echo set_value('phone'); ?>">
-                              
-                              <?php echo form_error('phone'); ?>
-                              <label for="phone">Phone Number</label>
-                            </div>
-                            <div class="form-group">
-                              <input name="email" id="email" class="form-control" type="text"  value="<?php echo set_value('email'); ?>" >
-                              <?php echo form_error('email'); ?>
-                              <label for="email">Email</label>
-                            </div>
-                         </div>
-                          
-                        <div class="col-md-4">
+                          <span class="text-lg opacity-50">Gender :</span>
                           <div class="form-group">
-                              <textarea name="address" id="address" class="form-control" rows="3" style="resize: none;"><?php echo set_value('address'); ?></textarea>
+                            <div class="col-sm-12">
+                              <label class="radio-inline radio-styled radio-primary">
+                                <input type="radio" name='gender' value="0" <?php echo set_radio('gender', '0', TRUE); ?> ><span>Male</span>
+                              </label>
+                              <label class="radio-inline radio-styled radio-primary">
+                                <input type="radio" name='gender' value="1" <?php echo set_radio('gender', '1'); ?> ><span>Female</span>
+                              </label>
+                              <label class="radio-inline radio-styled radio-primary">
+                                <input type="radio" name='gender' value="2" <?php echo set_radio('gender', '2'); ?> ><span>Transgender</span>
+                              </label>
+                            </div><!--end .col -->
+                          </div>
+                          <br>
+                          <div class="form-group">
+                              <textarea name="address" id="address" class="form-control" rows="4" style="resize: none;"><?php echo set_value('address'); ?></textarea>
                               <?php echo form_error('address'); ?>
                               <label for="address">Address</label>
                           </div>
-                          </div>
-                      </div><!--end-row-->
+                          
+												</div>
+												
+                        <div class="col-md-4">
+                          <div class="card width-7 center-block" >
+                          <div class="card-head card-head-sm style-primary">
+                            <header>STUDENT IMAGE</header>
+                            <div class="tools">
+                              <a id="remove-image-btn" rel="tooltip" data-original-title="Remove" style="display:none;" class="btn btn-icon-toggle btn-close"><i class="md md-close"></i></a>
+                            </div>
+                          </div><!--end .card-head -->
+                          <div class="card-body height-6">
+                            <button id="add-image-btn" class="center-block btn ink-reaction btn-flat btn-lg btn-primary" style="vertical-align: middle" type="button">Click here to Add Image</button>
+                            <img id="add-image-preview" src="" class="center-block width-3 border-gray" style="display:none;">
+                            <div id="add-image-field" class="text-center"></div>
+                          </div><!--end .card-body -->
+                          <input name="image_name" id="add-image" type="file" class="form-control" style=" margin-top: -37px; visibility: hidden;">  
+                          </div><?php echo form_error('image_name'); ?>
+												</div>
+											</div>
                       
                       <div class="row">
                         <div class="col-md-4">
@@ -197,28 +204,7 @@
                             </div>
                         </div>
                         
-                      </div><!-- row end -->
-                   
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <div class="input-group">
-                            <div class="input-group-btn">
-                              <button id="add-image-btn" class="btn ink-reaction btn-raised btn-small btn-primary" type="button">Add Image</button>
-                            </div>
-                            <div class="input-group-content">
-                              <input id="add-image-field" class="form-control" type="text" >
-                              <?php echo form_error('image_name'); ?>
-                            </div>
-                            <div class="input-group-btn">
-                              <button id="remove-image-btn" class="btn ink-reaction btn-icon-toggle btn-primary" style="display:none;" type="button"><i class="fa fa-remove"></i></button>
-                            </div>
-                          </div>
-                          <input name="image_name" id="add-image" type="file" class="form-control" style=" margin-top: -37px; visibility: hidden;">  
-                        </div>
-                      </div>
-                    </div>
-                      
+                      </div><!-- row end -->                     
 											
 										</div><!--end .card-body -->
 										<div class="card-actionbar">

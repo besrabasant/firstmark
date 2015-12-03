@@ -1,6 +1,20 @@
 <!-- BEGIN CONTENT-->
 			<div id="content">
 				<section class="style-default-bright">
+          <?php
+              
+             ///ALERT BOX FOR STATUS MESSAGES///
+              
+            if($this->session->flashdata('status')!=NULL):
+            ?> 
+            <br>
+            <div class="alert alert-<?=$this->session->flashdata('status')?> fade in" role="alert">
+              <a href="#" class=" pull-right btn ink-reaction btn-icon-toggle btn-primary-dark close" data-dismiss="alert" aria-label="close"><i class="fa fa-close"></i></a>
+              <strong><?php echo $this->session->flashdata('msg'); ?></strong>
+            </div>
+            <?php
+            endif;
+            ?>
           <div class="section-header">
 						<h2 class="text-primary">View Students List</h2>
 					</div>

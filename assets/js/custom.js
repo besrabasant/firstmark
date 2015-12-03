@@ -68,17 +68,21 @@ $(document).ready(function(){
     });
     
     $('#remove-image-btn').click(function(){
-        console.log('removed');
         $('#add-image').val('');
-        $('#add-image-field').val('');
         $('#remove-image-btn').toggle();
-        $('#add-image-btn').removeClass('disabled');
+        $('#add-image-btn').toggle();
+        $('#add-image-preview').attr('src','').toggle();
+        $('#add-image-field').text($(this).val());
     });
     
     $('#add-image').change(function(){
-            $('#add-image-field').val($(this).val());
-            $('#remove-image-btn').toggle();
-            $('#add-image-btn').addClass('disabled');
+        $('#remove-image-btn').toggle();
+        $('#add-image-btn').toggle();
+        var selectedFile = this.files[0];
+        selectedFile.convertToBase64(function(base64){
+            $('#add-image-preview').toggle().attr('src',base64);
+        }); 
+        $('#add-image-field').text($(this).val());
     });
     
     
@@ -137,6 +141,7 @@ $(document).ready(function(){
         var offcanvas = $('div#editStudentInformation');
         
         $.getJSON(baseUrl()+'/student/view/'+studentId,function(data){
+            offcanvas.find('input#student_id').val(data[0].student_id);
             offcanvas.find('input#first_name').val(data[0].first_name);
             offcanvas.find('input#middle_name').val(data[0].middle_name);
             offcanvas.find('input#last_name').val(data[0].last_name);
@@ -166,8 +171,8 @@ $(document).ready(function(){
             {
                 offcanvas.find('select#dormitory_id.select2-list').select2('val',data[0].dormitory_id);
             }
-            offcanvas.find('img#image_name').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
-
+            offcanvas.find('img#add-image-preview').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
+            offcanvas.find('input#prev_image_name').val(data[0].image_name);
          });
         
     });
@@ -231,3 +236,11 @@ function baseUrl() {
     var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1];
     return base_url;
 }
+
+File.prototype.convertToBase64 = function(callback){
+    var FR= new FileReader();
+    FR.onload = function(e) {
+         callback(e.target.result);
+    };       
+    FR.readAsDataURL(this);
+};
