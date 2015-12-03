@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    public function __construct () {
      parent::__construct();
      
-     if(null==$this ->session->userdata('id')){
+     if(  is_not_logged_in()){
        redirect('login');
        exit;
      }
@@ -28,6 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    public function index() {
      
      $this ->data['student_list']=$this ->student_model->getStudent();
+     $this ->data['class_list'] = $this->school_model->getClass();
      
       $this ->load->view ('templates/header', $this ->data);
       $this ->load->view('templates/offcanvas-left',$this ->data);

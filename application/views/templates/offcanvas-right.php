@@ -4,7 +4,7 @@
 				<!-- BEGIN OFFCANVAS EDIT STUDENT INFORMATION -->
 				<div id="editStudentInformation" class="offcanvas-pane width-21" >
 					<div class="offcanvas-head">
-						<header class="text-primary">Edit Student Information</header>
+						<header class="text-primary text-bold">Edit Student Information</header>
 						<div class="offcanvas-tools">
 							<a class="btn btn-icon-toggle btn-default-light pull-right" data-dismiss="offcanvas">
 								<i class="md md-close"></i>
@@ -61,7 +61,121 @@
                   </div>
 
                 </div><!--end .col-md-4 -->
+                
+                <div class="col-md-3">
+                           
+                  <div class="form-group">
+                    <?php //JAVASCRIPT CODE TO ONLY ACCEPT NUMBERS BY THE INPUT. onkeydown() ?>
+                    <input name="phone" id="phone" class="form-control" type="text" maxlength="10" onkeydown="return ( event.ctrlKey || event.altKey 
+                    || (47<event.keyCode && event.keyCode<58 && event.shiftKey==false) 
+                    || (95<event.keyCode && event.keyCode<106)
+                    || (event.keyCode==8) || (event.keyCode==9) 
+                    || (event.keyCode>34 && event.keyCode<40) 
+                    || (event.keyCode==46) )">
+                    <label for="phone">Phone Number</label>
+                  </div>
+                  <div class="form-group">
+                    <input name="email" id="email" class="form-control" type="text" >
+                    <label for="email">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                      <textarea name="address" id="address" class="form-control" rows="3" style="resize: none;"></textarea>
+                      <label for="address">Address</label>
+                  </div>
+                </div>
             </div>
+            
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input name="father_name" type="text" class="form-control" id="father_name">
+                  <label for="father_name">Father's Name</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input name="mother_name" type="text" class="form-control" id="mother_name">
+                  <label for="mother_name">Mother's Name</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <input name="religion" type="text" class="form-control" id="religion">
+                  <label for="religion">Religion</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+                        
+              <div class="col-md-2">
+                <div class="form-group">
+                    <select id="blood_group" name="blood_group" class="form-control select2-list">
+                      <option value=""></option>
+                      <option value="O+" >O+</option>
+                      <option value="O-" >O-</option>
+                      <option value="A+" >A+</option>
+                      <option value="A-" >A-</option>
+                      <option value="B+" >B+</option>
+                      <option value="B-" >B-</option>
+                      <option value="AB+" >AB+</option>
+                      <option value="AB-" >AB-</option>
+                    </select>
+                    <label for="blood_group">Blood Group</label>
+                  </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                    <select id="class" name="class_id" class="form-control select2-list">
+                      <option value=""></option>
+                      <?php foreach($class_list as $class): ?>
+                      <option value="<?=$class->class_id?>"  ><?=$class->class_name?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  <label for="class_id">Class</label>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                    <select id="section_id" name="section_id" class="form-control select2-list">
+                      <option value=""></option>
+                      <option value="A" >A</option>
+                      <option value="B" >B</option>
+                      <option value="C" >C</option>
+                      <option value="D" >D</option>
+                    </select>
+                    <label for="section_id">Section</label>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                    <select id="transport_id" name="transport_id" class="form-control select2-list">
+                     <option value=""></option>
+                      <option value="A" >A</option>
+                      <option value="B" >B</option>
+                      <option value="C" >C</option>
+                      <option value="D" >D</option>
+                    </select>
+                    <label for="transport_id">Transport ID</label>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-group">
+                    <select id="dormitory_id" name="dormitory_id" class="form-control select2-list">
+                      <option value=""></option>
+                      <option value="A" >A</option>
+                      <option value="B" >B</option>
+                      <option value="C" >C</option>
+                      <option value="D" >D</option>
+                    </select>
+                    <label for="dormitory_id">Dormitory ID</label>
+                  </div>
+              </div>
+
+            </div><!-- row end -->
+            
           <?php echo form_close();  ?>
 					</div><!--end .offcanvas-body -->
 				</div><!--end .offcanvas-pane -->

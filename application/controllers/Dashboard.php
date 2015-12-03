@@ -8,7 +8,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    public function __construct () {
      parent::__construct();
      
-     if(null==$this ->session->userdata('id')){
+     if(  is_not_logged_in() ){
        redirect('login');
        exit;
      }

@@ -140,22 +140,33 @@ $(document).ready(function(){
             offcanvas.find('input#first_name').val(data[0].first_name);
             offcanvas.find('input#middle_name').val(data[0].middle_name);
             offcanvas.find('input#last_name').val(data[0].last_name);
-            offcanvas.find('input#gender').val(which_gender(data[0].gender));
+            offcanvas.find('input[name=gender][value='+data[0].gender+']').prop('checked',true);
             offcanvas.find('input#d_o_b').val(formatDate(data[0].d_o_b));
-            
-            offcanvas.find('img#image_name').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
             offcanvas.find('input#phone').val(data[0].phone);
             offcanvas.find('input#email').val(data[0].email);
-            offcanvas.find('input#address').val(data[0].address);
+            offcanvas.find('textarea#address').html(data[0].address);
             offcanvas.find('input#religion').val(data[0].religion);
-            
-            offcanvas.find('input#blood_group').val(data[0].blood_group);
-            $.getJSON(baseUrl()+'/school/edit_class/'+data[0].class_id,function(data){
-                offcanvas.find('input#class').val(data[0].class_name);
-            });
-            offcanvas.find('input#section_id').val(data[0].section_id);
-            offcanvas.find('input#transport_id').val(data[0].transport_id);
-            offcanvas.find('input#dormitory_id').val(data[0].dormitory_id);
+            if('undefined'!==typeof offcanvas.find('select#blood_group.select2-list').find( 'option[value="' + data[0].blood_group + '"]' )[0])
+            {
+                offcanvas.find('select#blood_group.select2-list').select2('val',data[0].blood_group);
+            }
+            if('undefined'!==typeof offcanvas.find('select#class.select2-list').find( 'option[value="' + data[0].class_id + '"]' )[0])
+            {
+                offcanvas.find('select#class.select2-list').select2('val',data[0].class_id);
+            }
+            if('undefined'!==typeof offcanvas.find('select#section_id.select2-list').find( 'option[value="' + data[0].section_id + '"]' )[0])
+            {
+                offcanvas.find('select#section_id.select2-list').select2('val',data[0].section_id);
+            }
+            if('undefined'!==typeof offcanvas.find('select#transport_id.select2-list').find( 'option[value="' + data[0].transport_id + '"]' )[0])
+            {
+                offcanvas.find('select#transport_id.select2-list').select2('val',data[0].transport_id);
+            }
+            if('undefined'!==typeof offcanvas.find('select#dormitory_id.select2-list').find( 'option[value="' + data[0].dormitory_id + '"]' )[0])
+            {
+                offcanvas.find('select#dormitory_id.select2-list').select2('val',data[0].dormitory_id);
+            }
+            offcanvas.find('img#image_name').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
 
          });
         
