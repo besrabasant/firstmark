@@ -52,9 +52,10 @@
        $image_data= $this->input->post('prev_image_name');
        
        
-      if ( $this->upload->do_upload('image_name')){		
-        $image_data = $this->upload->data('file_name');
-      }
+        if ( $this->upload->do_upload('image_name')){		
+          $image_data = $this->upload->data('file_name');
+          unlink("./uploads/student/photo/".$this->input->post('prev_image_name'));
+        }
       
        
        $data = array(
@@ -81,15 +82,10 @@
 
      }
 
-     public function isDeleted($id){
-         $result = $this->db->get_where($this->tableName,array('student_id'=>$id));
-
-         if($result->num_rows()==1){
-             unlink("./uploads/student/photo/".$result->row()->image_name);
-             $this->db->delete($this->tableName, array('student_id' => $id)); 
-             return $this->db->affected_rows();
-         }
-
+     public function deleteStudent($id){
+        $this->db->set('status', '0');
+        $this->db->where('student_id', $id);
+        return $this->db->update($this->tableName);
      }
 
 

@@ -100,8 +100,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   }
   
-  
-  
+    public function delete($student_id){
+        if($this ->student_model->deleteStudent($student_id)){
+          $this->session->set_flashdata('status','success');
+          $this->session->set_flashdata('msg', 'One Student deleted succesfully!');
+          redirect('student/view');
+         }
+    }
   // HELPER FUNCTIONS
   
   public function file_selected(){

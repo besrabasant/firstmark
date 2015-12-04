@@ -16,7 +16,7 @@
             endif;
             ?>
           <div class="section-header">
-						<h2 class="text-primary">View Students List</h2>
+						<h2 class="text-primary">View All Students</h2>
 					</div>
 					<div class="section-body">
 						<table id="table-students" class="table table-hover table-striped">
@@ -43,7 +43,9 @@
                     case 2: echo "Transgender"; break;
                   } ?></td>
                   <td><?=$student->phone?></td>
-                  <td><?=$student->class_id?></td>
+                  <td><?php foreach( $class_list as $class ){
+                    echo ($class->class_id===$student->class_id)? $class->class_name:'';
+                  } ?></td>
                   <td><img class="height-1 width-1" src="<?php echo base_url('uploads/student/photo').'/'.$student->image_name;?>" alt=""></td>
                   <td><?php echo ($student->status)? "Active":"Not active"; ?></td>
 									<td class="text-right">
@@ -53,7 +55,7 @@
                     <a class="btn btn-icon-toggle" role="button" href="#viewStudentInformation" rel="tooltip" data-toggle="offcanvas" data-backdrop="true" data-original-title="View">
                       <i class="fa fa-eye"></i>
                     </a>
-                    <button type="button" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></button>
+                    <a class="btn btn-icon-toggle" href="<?=base_url('student/delete')."/".$student->student_id;?>" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>
 									</td>
 								</tr>
                 <?php endforeach; ?>

@@ -8,7 +8,9 @@
             <file>file:/C:/xampp/htdocs/firstmark/application/views/templates/offcanvas-right.php</file>
             <file>file:/C:/xampp/htdocs/firstmark/application/models/Student_model.php</file>
             <file>file:/C:/xampp/htdocs/firstmark/application/controllers/Student.php</file>
+            <file>file:/C:/xampp/htdocs/firstmark/application/views/admin/view_manage_class.php</file>
             <file>file:/C:/xampp/htdocs/firstmark/application/models/School_model.php</file>
+            <file>file:/C:/xampp/htdocs/firstmark/application/views/admin/view_all_students.php</file>
             <file>file:/C:/xampp/htdocs/firstmark/application/controllers/School.php</file>
         </group>
     </open-files>

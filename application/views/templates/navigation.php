@@ -34,8 +34,7 @@
 							</a>
 							<!--start submenu -->
 							<ul>
-                <li><a href="<?php echo base_url('student/add'); ?>" ><span class="title">Add Student</span></a></li>
-                <li><a href="" ><span class="title">Add bulk Students</span></a></li>
+                <li><a href="<?php echo base_url('student/add'); ?>" ><span class="title">Add New Student</span></a></li>
 								<li><a href="<?php echo base_url('student/view'); ?>" ><span class="title">View Students</span></a></li>
 							</ul><!--end /submenu -->
 						</li><!--end /menu-li -->

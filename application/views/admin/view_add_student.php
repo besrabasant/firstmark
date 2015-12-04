@@ -9,7 +9,7 @@
 								<?php echo form_open_multipart('student/add',array('class' => 'form')); ?>
 									<div class="card">
 										<div class="card-head style-primary">
-											<header>Add a Student</header>
+											<header>Add New Student</header>
 										</div>
 										<div class="card-body floating-label">
                       <?php

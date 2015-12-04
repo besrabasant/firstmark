@@ -171,7 +171,8 @@ $(document).ready(function(){
             {
                 offcanvas.find('select#dormitory_id.select2-list').select2('val',data[0].dormitory_id);
             }
-            offcanvas.find('img#add-image-preview').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
+            offcanvas.find('button#add-image-btn').hide();
+            offcanvas.find('img#add-image-preview').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name).show();
             offcanvas.find('input#prev_image_name').val(data[0].image_name);
          });
         
