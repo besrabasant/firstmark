@@ -30,3 +30,18 @@ if(!function_exists('is_not_logged_in')){
   }
 }
 
+if(!function_exists('insert_Login_Credentials')){
+  
+  function insert_Login_Credentials(){
+    
+    $ci = get_instance();
+    
+    if(null==$ci ->session->userdata('id')){
+      return TRUE;
+    } else {
+      return FALSE;
+    }
+    
+  }
+}
+
