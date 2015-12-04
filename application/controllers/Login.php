@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       {
           if($this->login_model->isValidUser()){
             
-            if(null!=$this ->session->userdata('id')){
+            if(  is_logged_in() ){
               redirect('dashboard');
               exit;   // if valid redirect to Dashboard
             }
