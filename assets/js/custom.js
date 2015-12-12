@@ -1,23 +1,13 @@
 
 
-$(document).ready(function(){
-    
-    $('html').niceScroll({
-                    autohidemode: false,
-                    cursorcolor: "#a4d9fc",
-                    cursorwidth: 12,
-                    scrollspeed: 300,
-                    mousescrollstep: 60,
-                    zindex: 1030
-                });
-    
-    //  DATE OF BIRTH DATE PICKER
-    $('#date-of-birth').datepicker({'autoclose':true,'format':'dd/mm/yyyy'});
-    
+$(document).ready(function () {
+
+//  DATE OF BIRTH DATE PICKER
+    $('.date-picker').datepicker({'autoclose': true, 'format': 'dd/mm/yyyy'});
     // BLOOD GROUP SELECT BOX
-           
-        $(".select2-list").each(function(){
-        var ret     = $(this).select2({
+
+    $(".select2-list").each(function () {
+        var ret = $(this).select2({
             allowClear: true,
             minimumResultsForSearch: Infinity
         });
@@ -37,197 +27,171 @@ $(document).ready(function(){
             }
         });
     });
-        
-   // INPUT MASK INIT 
-   /*$("#phone").inputmask({mask: "999-999-9999", showMaskOnHover: false});
-   
-    $('#email').inputmask({
-            mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]",
-            greedy: false,
-            onBeforePaste: function (pastedValue, opts) {
-                pastedValue = pastedValue.toLowerCase();
-                return pastedValue.replace("mailto:", "");
-            },
-            definitions: {
-                '*': {
-                    validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
-                    cardinality: 1,
-                    casing: "lower"
-                }
-            },
-            showMaskOnHover: false
-    });*/
-    
-    
-    
     //ADD IMAGE BUTTON
-    
-    $('#add-image-btn').click(function(e){
-       e.preventDefault();
-       $('#add-image').click();
+
+    $('#add-image-btn').click(function (e) {
+        e.preventDefault();
+        $('#add-image').click();
     });
-    
-    $('#remove-image-btn').click(function(){
+    $('#remove-image-btn').click(function () {
         $('#add-image').val('');
         $('#remove-image-btn').toggle();
         $('#add-image-btn').toggle();
-        $('#add-image-preview').attr('src','').toggle();
-        $('#add-image-field').text($(this).val());
+        $('#add-image-preview').attr('src', '').toggle();
+        $('#add-image-field').toggle();
     });
-    
-    $('#add-image').change(function(){
-        $('#remove-image-btn').toggle();
+    $('#add-image').change(function () {
         $('#add-image-btn').toggle();
+        $('#remove-image-btn').toggle();
         var selectedFile = this.files[0];
-        selectedFile.convertToBase64(function(base64){
-            $('#add-image-preview').toggle().attr('src',base64);
-        }); 
-        $('#add-image-field').text($(this).val());
+        selectedFile.convertToBase64(function (base64) {
+            $('#add-image-preview').toggle().attr('src', base64);
+        });
+        $('#add-image-field').toggle();
     });
-    
-    
-    //DATATABLE INIT
-    $('#table-students').DataTable({
-        "dom": 'lCfrtip',
-        "order": [],
-        "colVis": {
-                "buttonText": "Select Columns",
-                "overlayFade": 0,
-                "align": "right",
-                "exclude": [ 7 ]
-        },
-        "language": {
-                "lengthMenu": 'View _MENU_ <button id="view_nos" type="button" class="btn ink-reaction btn-icon-toggle"><i class="fa fa-angle-down"></i></button> students per page',
-                "search": '<i class="fa fa-search"></i>',
-                "paginate": {
-                        "previous": '<i class="fa fa-angle-left"></i>',
-                        "next": '<i class="fa fa-angle-right"></i>'
-                }
-        }
-		
+    $('#student_contact').click(function () {
+        $('#parent-contact-details').toggleClass('opacity-50');
+        $(':input', '#parent-contact-details').attr('disabled', !(!$(this).attr('checked')));
+        $('textarea', '#parent-contact-details:textarea').attr('disabled', !(!$(this).attr('checked')));
     });
-    
+    $('#search-parents-submit').click(function () {
+        var postData = {
+            'search_param': $('select#search_param').val(),
+            'search_value': $('input#search_value').val()
+        };
+        $.post(baseUrl() + '/parent/search', postData, function (result) {
+            console.log(result);
+            var html = "";
+            if (result == []) {
+                html += '<tr>'
+                        + '<td colspan="6">'
+                        + 'No match Found!!'
+                        + '</td>'
+                        + '</tr>';
+            } else {
+                $.each(result, function (index, row) {
+                    html += '<tr>'
+                            + '<td class="width-1">'
+                            + '<div class=" pull-right checkbox checkbox-inline checkbox-styled">'
+                            + '<label><input type="checkbox" value="' + row.parent_id + '" name="existing_parent"><span></span></label>'
+                            + '</div>'
+                            + '</td>'
+                            + '<td>' + row.reg_id + '</td>'
+                            + '<td>' + row.father_name + '</td>'
+                            + '<td>' + row.mother_name + '</td>'
+                            + '<td>' + row.phone + '</td>'
+                            + '<td>' + row.email + '</td>'
+                            + '</tr>';
+                });
+            }
+            $('table#parent-search-results > tbody').html('').append(html);
+        }, 'json');
+    });
+    //ADD DOCUMENT
+
+    $('#add-document-btn').click(function () {
+        $('<tr class="fade in" >'
+                + '<td><img class="width-4" src="">'
+                + '<input id="upload-document" name="document_file[]" type="file" class="form-control" style="display:none"></td>'
+                + '<td><br><div class="form-group">'
+                + '<input name="document_name[]" type = "text" class = "form-control" >'
+                + '<label for = "document_name[]" > Enter Document Name </label>'
+                + '</div></td >'
+                + '<td class="text-center"><a role="button" id="remove-document" style="display: inline-block;" class=" pull-right btn ink-reaction btn-raised btn-danger v-top">'
+                + 'Remove'
+                + '</a></td></tr>').appendTo('table#documents>tbody').hide().find('#upload-document').trigger('click');
+        
+    });
+
+    $(this).on('click', '#remove-document',function () {
+        $(this).closest('tr').detach();
+    });
+
+    $(this).on('change', '#upload-document', function () {
+        var tr = $(this).closest('tr');
+        var selectedFile = this.files[0];
+        console.log(selectedFile);
+        selectedFile.convertToBase64(function (base64) {
+            tr.find('img').attr('src', base64);
+        });
+        tr.show().fadeIn();
+    });
+
+
     $("[rel='tooltip']").tooltip();
-    
-    
-    // ADD MATERIAL DESIGN TO ELEMENTS IN DATA TABLES
-    $('button.ColVis_Button').removeClass('ColVis_Button ColVis_MasterButton').addClass('btn btn-block ink-reaction btn-default-bright').append('<i style="margin-left:5px;" class="fa fa-caret-down text-default-light"></i>');
-    
-    $('button','.ColVis').click( function(){
-        $('label','ul.ColVis_collection').addClass('checkbox-styled checkbox-primary');
-    });
-    
+
     $('.select2-results').addClass('scroll');
     
+    $("#action").click(function(){
+        $('input[name=hidden_action]').val($(this).data('action'));
+        $('#form-submit').trigger('click');
+    });
     
     //FETCHING DATA INTO MODALS AND OFF-CANVAS ELEMENTS
     
     $('#editClassModal').on('show.bs.modal', function (event) {
         
         var modal = $(this);
-        var classId = $(event.relatedTarget).closest('tr').attr('data-classindex');
+        var classId = $(event.relatedTarget).closest('tr').attr('data-index');
         
-        var url = baseUrl()+'/school/edit_class/'+classId;
+        var url = baseUrl()+'/class/edit/'+classId;
         $.getJSON(url,function(data){
-            modal.find('input#class_id').val(data[0].class_id);
-            modal.find('input#class_name').val(data[0].class_name);
-            modal.find('input#room_no').val(data[0].room_no);
+            modal.find('input#class_id').val(data.class_id);
+            modal.find('input#class_code').val(data.class_code);
+            modal.find('input#class_name').val(data.class_name);
+            modal.find('input#room_no').val(data.room_no);
         });
         
     });
     
-    $('a[href=#editStudentInformation]').on('click', function (event) {
-        var studentId = $(this).closest('tr').attr('data-Index');
-        var offcanvas = $('div#editStudentInformation');
-        
-        $.getJSON(baseUrl()+'/student/view/'+studentId,function(data){
-            offcanvas.find('input#student_id').val(data[0].student_id);
-            offcanvas.find('input#first_name').val(data[0].first_name);
-            offcanvas.find('input#middle_name').val(data[0].middle_name);
-            offcanvas.find('input#last_name').val(data[0].last_name);
-            offcanvas.find('input[name=gender][value='+data[0].gender+']').prop('checked',true);
-            offcanvas.find('input#d_o_b').val(formatDate(data[0].d_o_b));
-            offcanvas.find('input#phone').val(data[0].phone);
-            offcanvas.find('input#email').val(data[0].email);
-            offcanvas.find('textarea#address').html(data[0].address);
-            offcanvas.find('input#religion').val(data[0].religion);
-            if('undefined'!==typeof offcanvas.find('select#blood_group.select2-list').find( 'option[value="' + data[0].blood_group + '"]' )[0])
-            {
-                offcanvas.find('select#blood_group.select2-list').select2('val',data[0].blood_group);
-            }
-            if('undefined'!==typeof offcanvas.find('select#class.select2-list').find( 'option[value="' + data[0].class_id + '"]' )[0])
-            {
-                offcanvas.find('select#class.select2-list').select2('val',data[0].class_id);
-            }
-            if('undefined'!==typeof offcanvas.find('select#section_id.select2-list').find( 'option[value="' + data[0].section_id + '"]' )[0])
-            {
-                offcanvas.find('select#section_id.select2-list').select2('val',data[0].section_id);
-            }
-            if('undefined'!==typeof offcanvas.find('select#transport_id.select2-list').find( 'option[value="' + data[0].transport_id + '"]' )[0])
-            {
-                offcanvas.find('select#transport_id.select2-list').select2('val',data[0].transport_id);
-            }
-            if('undefined'!==typeof offcanvas.find('select#dormitory_id.select2-list').find( 'option[value="' + data[0].dormitory_id + '"]' )[0])
-            {
-                offcanvas.find('select#dormitory_id.select2-list').select2('val',data[0].dormitory_id);
-            }
-            offcanvas.find('button#add-image-btn').hide();
-            offcanvas.find('img#add-image-preview').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name).show();
-            offcanvas.find('input#prev_image_name').val(data[0].image_name);
-         });
+    $('#editSectionModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var sectionId = $(event.relatedTarget).closest('tr').attr('data-index');
+        var url = baseUrl()+'/section/edit/'+sectionId;
+        $.getJSON(url,function(data){
+            modal.find('input#section_id').val(data.section_id);
+            modal.find('input#section_name').val(data.section_name);
+        });
         
     });
     
-    $('a[href=#viewStudentInformation]').on('click', function (event) {
+    $('#editSubjectModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var subjectId = $(event.relatedTarget).closest('tr').attr('data-index');
+        var url = baseUrl()+'/subject/edit/'+subjectId;
+        $.getJSON(url,function(data){
+            modal.find('input#subject_id').val(data.subject_id);
+            modal.find('input#subject_name').val(data.subject_name);
+            modal.find('input#subject_code').val(data.subject_code);
+        });
         
-        var studentId = $(this).closest('tr').attr('data-Index');
-        var offcanvas = $('div#viewStudentInformation');
-        
-        $.getJSON(baseUrl()+'/student/view/'+studentId,function(data){
-            offcanvas.find('div#first_name').text(data[0].first_name);
-            offcanvas.find('div#middle_name').text(data[0].middle_name);
-            offcanvas.find('div#last_name').text(data[0].last_name);
-            offcanvas.find('div#gender').text(which_gender(data[0].gender));
-            offcanvas.find('img#image_name').attr('src', baseUrl()+'/uploads/student/photo/'+ data[0].image_name);
-            offcanvas.find('div#phone').text(data[0].phone);
-            offcanvas.find('div#email').text(data[0].email);
-            offcanvas.find('div#address').text(data[0].address);
-            offcanvas.find('div#religion').text(data[0].religion);
-            offcanvas.find('div#d_o_b').text(formatDate(data[0].d_o_b));
-            offcanvas.find('div#blood_group').text(data[0].blood_group);
-            $.getJSON(baseUrl()+'/school/edit_class/'+data[0].class_id,function(data){
-                offcanvas.find('div#class').text(data[0].class_name);
-            });
-            offcanvas.find('div#section_id').text(data[0].section_id);
-            offcanvas.find('div#transport_id').text(data[0].transport_id);
-            offcanvas.find('div#dormitory_id').text(data[0].dormitory_id);
+    });
+    
+    
+    
+    
+    
 
-         });
-        
-        
-    });
-    
-    
-    
-    
-    
 });
-
-
-function formatDate (input) {
-  var datePart = input.match(/\d+/g),
-  year = datePart[0], // get only two digits
-  month = datePart[1], day = datePart[2];
-
-  return day+'/'+month+'/'+year;
+function formatDate(input) {
+    var datePart = input.match(/\d+/g),
+            year = datePart[0], // get only two digits
+            month = datePart[1], day = datePart[2];
+    return day + '/' + month + '/' + year;
 }
 
 function which_gender(id) {
     var gender;
-    switch(id){
-        case '0' : gender = 'Male'; break;
-        case '1' : gender = 'Female'; break;
-        case '2' : gender = 'Transgender'; break;
+    switch (id) {
+        case '0' :
+            gender = 'Male';
+            break;
+        case '1' :
+            gender = 'Female';
+            break;
+        case '2' :
+            gender = 'Transgender';
+            break;
     }
     return gender;
 }
@@ -238,10 +202,10 @@ function baseUrl() {
     return base_url;
 }
 
-File.prototype.convertToBase64 = function(callback){
-    var FR= new FileReader();
-    FR.onload = function(e) {
-         callback(e.target.result);
-    };       
+File.prototype.convertToBase64 = function (callback) {
+    var FR = new FileReader();
+    FR.onload = function (e) {
+        callback(e.target.result);
+    };
     FR.readAsDataURL(this);
 };

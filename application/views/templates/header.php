@@ -12,25 +12,24 @@
 
 		<!-- BEGIN STYLESHEETS -->
 		<link href='<?php echo base_url(); ?>assets/css/roboto.css' rel='stylesheet' type='text/css'/>
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/bootstrap.css" />
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/materialadmin.css" />
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/font-awesome.min.css" /> <!--Font Awesome Icon Font-->
-		<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/material-design-iconic-font.min.css" /> <!--Material Design Iconic Font-->
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/bootstrap.css'); ?>" />
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/materialadmin.css'); ?>" />
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/font-awesome.min.css'); ?>" /> <!--Font Awesome Icon Font-->
+		<link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/material-design-iconic-font.min.css'); ?>" /> <!--Material Design Iconic Font-->
 		<!-- Additional CSS includes -->
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/bootstrap-colorpicker/bootstrap-colorpicker.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/bootstrap-datepicker/datepicker3.css" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/select2/select2.css" />
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/DataTables/jquery.dataTables.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css">
-    <link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>assets/css/theme-default/libs/toastr/toastr.css">
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/libs/bootstrap-colorpicker/bootstrap-colorpicker.css'); ?>">
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/libs/bootstrap-datepicker/datepicker3.css'); ?>" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/libs/select2/select2.css'); ?>" />
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/libs/DataTables/jquery.dataTables.css'); ?>">
+    <link type="text/css" rel="stylesheet" href="<?php echo base_url('assets/css/theme-default/libs/DataTables/extensions/dataTables.colVis.css'); ?>">
     
     
     <!-- END STYLESHEETS -->
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/libs/utils/html5shiv.js?1403934957"></script>
-		<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/libs/utils/respond.min.js?1403934956"></script>
+		<script type="text/javascript" src="<?php echo base_url('assets/js/libs/utils/html5shiv.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo base_url('assets/js/libs/utils/respond.min.js'); ?>"></script>
 		<![endif]-->
 	</head>
  	<body class="menubar-hoverable header-fixed ">
@@ -76,14 +75,14 @@
 								<li class="dropdown-header">Today's messages</li>
 								<li>
 									<a class="alert alert-callout alert-warning" href="javascript:void(0);">
-                    <img class="pull-right img-circle dropdown-avatar" src="<?php echo base_url(); ?>/assets/img/avatar2.jpg?1404026449" alt="" />
+                    <img class="pull-right img-circle dropdown-avatar" src="<?php echo base_url('/assets/img/avatar2.jpg'); ?>" alt="" />
 										<strong>Alex Anistor</strong><br/>
 										<small>Testing functionality...</small>
 									</a>
 								</li>
 								<li>
 									<a class="alert alert-callout alert-info" href="javascript:void(0);">
-										<img class="pull-right img-circle dropdown-avatar" src="<?php echo base_url(); ?>/assets/img/avatar3.jpg?1404026799" alt="" />
+										<img class="pull-right img-circle dropdown-avatar" src="<?php echo base_url('/assets/img/avatar3.jpg'); ?>" alt="" />
 										<strong>Alicia Adell</strong><br/>
 										<small>Reviewing last changes...</small>
 									</a>
@@ -98,10 +97,16 @@
 					<ul class="header-nav header-nav-profile">
 						<li class="dropdown">
 							<a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
-								<img src="<?php echo base_url(); ?>/assets/img/avatar1.jpg?1403934956" alt="" />
+								<img src="<?php echo base_url('/assets/img/avatar1.jpg'); ?>" alt="" />
 								<span class="profile-info">
-									<?php echo $username; ?>
-									<small>Administrator</small>
+									<?php echo $this->session->user_id;?>
+									<small><?php 
+                    switch($this->session->user_level){
+                      case '1': echo "Administrator"; break;
+                      case '2': echo "Teacher"; break;
+                      case '3': echo "Student"; break;
+                      case '4': echo "Parent"; break;
+                    }  ?></small>
 								</span>
 							</a>
 							<ul class="dropdown-menu animation-dock">
