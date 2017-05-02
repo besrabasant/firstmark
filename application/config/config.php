@@ -46,6 +46,7 @@ $config['index_page'] = '';
 |
 */
 $config['salt'] = '@#%$&=';
+$config['salt2'] = '2a+_89D';
 
 
 

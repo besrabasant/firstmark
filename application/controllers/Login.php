@@ -19,7 +19,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    public function index() {
      
      // CHECK IF USER IS LOGGED IN - SEND HIM TO DASHBOARD;
-     if(null!=$this ->session->userdata('id')){
+     if(  is_logged_in() ){
         redirect('dashboard');
         exit;
      }
@@ -38,7 +38,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       {
           if($this->login_model->isValidUser()){
             
-            if(null!=$this ->session->userdata('id')){
+            if(  is_logged_in() ){
               redirect('dashboard');
               exit;   // if valid redirect to Dashboard
             }

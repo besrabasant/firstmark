@@ -12,12 +12,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       $password = md5($this->input->post('password'));
       
       $result = $this->db->get_where('users',array('username'=>$username, 'password'=>$password),1);
-      
       if($result->num_rows()==1){
         $this ->session->set_userdata(array(
           'id' => $result->row()->id,
-          'username' => $result->row()->username,
-          'userlevel' => $result->row()->user_level,
+          'user_id' => $result->row()->username,
+          'user_level' => $result->row()->user_level,
         ));        
         return true;
       }
